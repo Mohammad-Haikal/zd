@@ -46,7 +46,7 @@
                                 <span>Clita erat ipsum et lorem et sit sed stet lorem</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Explore More</a>
+                        <a class="btn btn-primary rounded-pill py-3 px-4" href="">Explore More</a>
                     </div>
                 </div>
             </div>

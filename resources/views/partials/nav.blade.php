@@ -1,35 +1,57 @@
 <!-- Navbar Start -->
-<div class="container-fluid bg-white sticky-top">
+<div class="container-fluid sticky-top bg-white">
     <div class="container">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light p-lg-0">
-            <a href="index.html" class="navbar-brand d-lg-none">
+        <nav class="navbar navbar-expand-lg navbar-light p-lg-0 bg-white">
+            <a class="navbar-brand d-lg-none" href="index.html">
                 <h1 class="fw-bold m-0">GrowMark</h1>
             </a>
-            <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse">
+            <button class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-collapse collapse" id="navbarCollapse">
                 <div class="navbar-nav">
-                    <a href="/" class="nav-item nav-link">Home</a>
-                    <a href="/about" class="nav-item nav-link">About</a>
-                    <a href="/service" class="nav-item nav-link">Services</a>
-                    <a href="/project" class="nav-item nav-link">Projects</a>
+                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/about">About</a>
+                    <a class="nav-item nav-link" href="/service">Services</a>
+                    <a class="nav-item nav-link" href="/project">Projects</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Pages</a>
                         <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
-                            <a href="/feature" class="dropdown-item">Features</a>
-                            <a href="/team" class="dropdown-item">Our Team</a>
-                            <a href="/testimonial" class="dropdown-item">Testimonial</a>
-                            <a href="/quote" class="dropdown-item">Quotation</a>
-                            <a href="/404" class="dropdown-item">404 Page</a>
+                            <a class="dropdown-item" href="/feature">Features</a>
+                            <a class="dropdown-item" href="/team">Our Team</a>
+                            <a class="dropdown-item" href="/testimonial">Testimonial</a>
+                            <a class="dropdown-item" href="/quote">Quotation</a>
+                            <a class="dropdown-item" href="/404">404 Page</a>
                         </div>
                     </div>
-                    <a href="/contact" class="nav-item nav-link">Contact</a>
+                    <a class="nav-item nav-link" href="/contact">Contact</a>
                 </div>
-                <div class="ms-auto d-none d-lg-block">
-                    <a href="" class="btn btn-primary rounded-pill py-2 px-3">Get A Quote</a>
-                </div>
+                @auth
+                    <div class="ms-auto nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            {{-- @if (Auth::user()->role == 1)
+                                <li>
+                                    <a class="dropdown-item {{ request()->is('dashboard/requests') ? 'active' : '' }}" href="/dashboard/requests/sea">Dashboard</a>
+                                </li>
+                            @endif --}}
+                            <li>
+                                <form action="/user/logout" method="post">
+                                    @csrf
+                                    <input class="dropdown-item" type="submit" value="Logout">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
+                @guest
+                    <div class="ms-auto">
+                        <a class="btn btn-primary rounded-3 me-1 py-2 px-4" href="/signup">Sign Up</a>
+                        <a class="btn btn-outline-primary rounded-3 py-2 px-4" href="/login">Login</a>
+                    </div>
+                @endguest
             </div>
         </nav>
     </div>

@@ -15,7 +15,7 @@
                                     <h1 class="display-1 text-white mb-4 animated slideInRight">Unlock Your Business
                                         Growth</h1>
                                     <a href=""
-                                        class="btn btn-primary rounded-pill py-3 px-5 animated slideInRight">Explore
+                                        class="btn btn-primary rounded-pill py-3 px-4 animated slideInRight">Explore
                                         More</a>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                     <h1 class="display-1 text-white mb-5 animated slideInLeft">Ready to Grow Your
                                         Business</h1>
                                     <a href=""
-                                        class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Explore
+                                        class="btn btn-primary rounded-pill py-3 px-4 animated slideInLeft">Explore
                                         More</a>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <span>Clita erat ipsum et lorem et sit sed stet lorem</span>
                             </div>
                         </div>
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Explore More</a>
+                        <a class="btn btn-primary rounded-pill py-3 px-4" href="">Explore More</a>
                     </div>
                 </div>
             </div>

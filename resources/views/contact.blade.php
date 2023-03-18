@@ -1,7 +1,5 @@
 <x-template>
 
-
-
     <!-- Page Header Start -->
     <div class="container-fluid page-header wow fadeIn mb-5 py-5" data-wow-delay="0.1s">
         <div class="container py-5 text-center">
@@ -55,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Message</button>
+                                <button class="btn btn-primary rounded-pill py-3 px-4" type="submit">Send Message</button>
                             </div>
                         </div>
                     </form>
