@@ -18,10 +18,11 @@
     <!-- Contact Start -->
     <div class="container-xxl py-5">
         <div class="container">
-            <div class="wow fadeInUp mx-auto text-center" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-5 text-center mb-5">Libraries who can provide course codes</h1>
+            {{-- <div class="wow fadeInUp mx-auto text-center" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="fs-5 fw-medium text-primary">Contact Us</p>
                 <h1 class="display-5 mb-5">If You Have Any Query, Please Contact Us</h1>
-            </div>
+            </div> --}}
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="mb-4">Need a functional contact form?</h3>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>GrowMark</title>
+    <title>ZD Suite</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -20,15 +20,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{asset('lib/animate/animate.min.css')}}" rel="stylesheet">
-    <link href="{{asset('lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-    <link href="{{asset('lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{asset('css/app.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
         <div class="container py-3">
             <div class="d-flex align-items-center">
                 <a href="index.html">
-                    <h2 class="fw-bold m-0 text-white">GrowMark</h2>
+                    <h2 class="fw-bold m-0 text-white">ZD Suite</h2>
                 </a>
                 <div class="ms-auto d-flex align-items-center">
                     <small class="ms-4"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</small>
@@ -116,13 +116,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-md-start mb-md-0 mb-3 text-center">
-                    &copy; <a class="fw-medium text-light" href="#">Your Site Name</a>, All Right Reserved.
+                    &copy; <a class="fw-medium text-light" href="/">ZD Suite</a>, All Right Reserved.
                 </div>
-                <div class="col-md-6 text-md-end text-center">
+                {{-- <div class="col-md-6 text-md-end text-center">
                     <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                     Designed By <a class="fw-medium text-light" href="https://htmlcodex.com">HTML Codex</a>
                     Distributed By <a class="fw-medium text-light" href="https://themewagon.com">ThemeWagon</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -134,14 +134,19 @@
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{asset('lib/wow/wow.min.js')}}"></script>
-    <script src="{{asset('lib/easing/easing.min.js')}}"></script>
-    <script src="{{asset('lib/waypoints/waypoints.min.js')}}"></script>
-    <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('lib/lightbox/js/lightbox.min.js')}}"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
 
     <!-- Template Javascript -->
-    <script src="{{asset('js/main.js')}}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    {{-- Flash Message --}}
+    <x-flash-message />
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

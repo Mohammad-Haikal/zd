@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LectureController;
 use App\Http\Controllers\RouterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -65,4 +67,42 @@ Route::prefix('/user')->group(function () {
     // Route::put('/update-pass/{user}', [UserController::class, 'updatePass'])->middleware('auth');
     Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
     // Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('auth');
+
+    Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
+    Route::get('/students', [UserController::class, 'students'])->middleware('admin');
 });
+
+
+// Course
+Route::prefix('/course')->group(function () {
+    Route::get('/', [CourseController::class, 'index']);
+    // Route::get('/create', [CourseController::class, 'create'])->middleware('auth');
+    // Route::post('/store', [CourseController::class, 'store'])->middleware('auth');
+    // Route::get('/show/{course}', [CourseController::class, 'show'])->middleware('auth');
+    // Route::get('/edit/{course}', [CourseController::class, 'edit'])->middleware('auth');
+    // Route::put('/update', [CourseController::class, 'update'])->middleware('auth');
+    // Route::delete('/destroy/{course}', [CourseController::class, 'destroy'])->middleware('auth');
+});
+
+// Lecture
+Route::prefix('/lecture')->group(function () {
+    // Route::get('/', [LectureController::class, 'index'])->middleware('auth');
+    // Route::get('/create', [LectureController::class, 'create'])->middleware('auth');
+    // Route::post('/store', [LectureController::class, 'store'])->middleware('auth');
+    // Route::get('/show/{lecture}', [LectureController::class, 'show'])->middleware('auth');
+    // Route::get('/edit/{lecture}', [LectureController::class, 'edit'])->middleware('auth');
+    // Route::put('/update', [LectureController::class, 'update'])->middleware('auth');
+    // Route::delete('/destroy/{lecture}', [LectureController::class, 'destroy'])->middleware('auth');
+});
+
+
+
+
+
+
+// Middlewares:
+//  1. No middleware
+//  2. guest
+//  3. auth
+//  3. instructor
+//  4. admin

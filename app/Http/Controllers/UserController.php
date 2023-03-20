@@ -9,6 +9,19 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function instructors()
+    {
+        return view('user.instructors', [
+            'users' => User::all()->where('role', '=', '1')
+        ]);
+    }
+    public function students()
+    {
+        return view('user.students', [
+            'users' => User::all()->where('role', '=', '0')
+        ]);
+    }
+
     public function authanticate(Request $request)
     {
         $formFields = $request->validate([
@@ -18,10 +31,6 @@ class UserController extends Controller
 
         if (Auth::attempt($formFields, true)) {
             $request->session()->regenerate();
-
-            // if (Auth::user()->role == 1) {
-            //     return redirect('/dashboard/requests/sea')->with('message', 'You have successfully logged in as Administrator');
-            // }
 
             return redirect('/')->with('message', 'You have successfully logged in');
         }

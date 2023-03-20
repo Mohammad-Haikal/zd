@@ -1,9 +1,13 @@
+@php
+    $user = Auth::user();
+@endphp
+
 <!-- Navbar Start -->
 <div class="container-fluid sticky-top bg-white">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light p-lg-0 bg-white">
             <a class="navbar-brand d-lg-none" href="index.html">
-                <h1 class="fw-bold m-0">GrowMark</h1>
+                <h1 class="fw-bold m-0">ZD Suite</h1>
             </a>
             <button class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" type="button">
                 <span class="navbar-toggler-icon"></span>
@@ -11,6 +15,7 @@
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/course">Course Catalogue</a>
                     <a class="nav-item nav-link" href="/about">About</a>
                     <a class="nav-item nav-link" href="/service">Services</a>
                     <a class="nav-item nav-link" href="/project">Projects</a>
@@ -26,32 +31,46 @@
                     </div>
                     <a class="nav-item nav-link" href="/contact">Contact</a>
                 </div>
-                @auth
-                    <div class="ms-auto nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            {{-- @if (Auth::user()->role == 1)
-                                <li>
-                                    <a class="dropdown-item {{ request()->is('dashboard/requests') ? 'active' : '' }}" href="/dashboard/requests/sea">Dashboard</a>
-                                </li>
-                            @endif --}}
-                            <li>
+                <div class="ms-auto navbar-nav">
+                    @auth
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle m-0" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                {{ $user->name }}
+                                @if ($user->role == 0)
+                                    <span>(Student)</span>
+                                @elseif($user->role == 1)
+                                    <span>(Instructor)</span>
+                                @elseif($user->role == 2)
+                                    <span>(Admin)</span>
+                                @endif
+                            </a>
+                            <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
+                                @if ($user->role == 0)
+                                    <a class="dropdown-item" href="/studentcourse">My Courses</a>
+                                    <a class="dropdown-item" href="/studentcourse/done">Done Courses</a>
+                                @elseif($user->role == 1)
+                                    <a class="dropdown-item" href="user/courses">My Courses</a>
+                                    <a class="dropdown-item" href="/usertask">My Tasks</a>
+                                @elseif($user->role == 2)
+                                    <a class="dropdown-item" href="">Manage Tasks</a>
+                                    <a class="dropdown-item" href="">Manage Courses</a>
+                                    <a class="dropdown-item" href="/user/instructors">Manage Instructors</a>
+                                    <a class="dropdown-item" href="/user/students">Manage Students</a>
+                                @endif
                                 <form action="/user/logout" method="post">
                                     @csrf
                                     <input class="dropdown-item" type="submit" value="Logout">
                                 </form>
-                            </li>
-                        </ul>
-                    </div>
-                @endauth
-                @guest
-                    <div class="ms-auto">
-                        <a class="btn btn-primary rounded-3 me-1 py-2 px-4" href="/signup">Sign Up</a>
-                        <a class="btn btn-outline-primary rounded-3 py-2 px-4" href="/login">Login</a>
-                    </div>
-                @endguest
+                            </div>
+                        </div>
+                    @endauth
+                    @guest
+                        <div class="ms-auto">
+                            <a class="btn btn-primary rounded-3 me-1 py-2 px-4" href="/signup">Sign Up</a>
+                            <a class="btn btn-outline-primary rounded-3 py-2 px-4" href="/login">Login</a>
+                        </div>
+                    @endguest
+                </div>
             </div>
         </nav>
     </div>
