@@ -1,5 +1,5 @@
 <x-template>
-    <div class="container">
+    <div class="container min-vh-100">
         <h1>Manage Students</h1>
         <div class="table-responsive">
             @if (count($users) != 0)
@@ -12,7 +12,7 @@
                             <th scope="col">Date of Birth</th>
                             <th scope="col">Age</th>
                             <th scope="col">Country</th>
-                            <th scope="col" colspan="2">Joined on Date</th>
+                            <th scope="col" colspan="3">Joined on Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +32,7 @@
                                     <form action="/user/delete/{{ $user->id }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm link-danger border-0" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button class="btn btn-sm link-danger border-0 p-0" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>

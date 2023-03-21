@@ -57,16 +57,14 @@ Route::prefix('/')->group(function () {
 // User
 Route::prefix('/user')->group(function () {
     Route::post('/auth', [UserController::class, 'authanticate']);
-    // Route::get('/', [UserController::class, 'index'])->middleware('auth');
-    // Route::get('/add', [UserController::class, 'create'])->middleware('auth');
     Route::post('/store', [UserController::class, 'store'])->middleware('guest');
-    // Route::get('/edit/{user}', [UserController::class, 'edit'])->middleware('auth');
-    // Route::put('/update/{user}', [UserController::class, 'update'])->middleware('auth');
+    Route::get('/add', [UserController::class, 'add'])->middleware('admin');
+    Route::post('/storeadded', [UserController::class, 'storeAdded'])->middleware('admin');
+    Route::get('/edit/{user}', [UserController::class, 'edit'])->middleware('admin');
+    Route::put('/update/{user}', [UserController::class, 'update'])->middleware('admin');
     // Route::get('/settings', [UserController::class, 'show'])->middleware('auth');
-    // Route::put('/update-info/{user}', [UserController::class, 'updateInfo'])->middleware('auth');
-    // Route::put('/update-pass/{user}', [UserController::class, 'updatePass'])->middleware('auth');
     Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-    // Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('auth');
+    Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('admin');
 
     Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
     Route::get('/students', [UserController::class, 'students'])->middleware('admin');
@@ -75,13 +73,13 @@ Route::prefix('/user')->group(function () {
 
 // Course
 Route::prefix('/course')->group(function () {
-    Route::get('/', [CourseController::class, 'index']);
-    // Route::get('/create', [CourseController::class, 'create'])->middleware('auth');
-    // Route::post('/store', [CourseController::class, 'store'])->middleware('auth');
+    Route::get('/', [CourseController::class, 'index'])->middleware('admin');
+    Route::get('/add', [CourseController::class, 'add'])->middleware('admin');
+    Route::post('/store', [CourseController::class, 'store'])->middleware('admin');
     // Route::get('/show/{course}', [CourseController::class, 'show'])->middleware('auth');
-    // Route::get('/edit/{course}', [CourseController::class, 'edit'])->middleware('auth');
-    // Route::put('/update', [CourseController::class, 'update'])->middleware('auth');
-    // Route::delete('/destroy/{course}', [CourseController::class, 'destroy'])->middleware('auth');
+    Route::get('/edit/{course}', [CourseController::class, 'edit'])->middleware('admin');
+    Route::put('/update/{course}', [CourseController::class, 'update'])->middleware('admin');
+    Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->middleware('admin');
 });
 
 // Lecture

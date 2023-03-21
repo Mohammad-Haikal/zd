@@ -57,98 +57,74 @@ class UserController extends Controller
         return redirect('/login')->with('message', 'Account created successfully, please login to your account');
     }
 
-    // public function edit(User $user)
-    // {
-    //     return view('User.edit', [
-    //         'user' => $user,
-    //     ]);
-    // }
+    public function edit(User $user)
+    {
+        return view('user.edit', [
+            'user' => $user,
+        ]);
+    }
 
-    // public function update(Request $request, User $user)
-    // {
+    public function update(Request $request, User $user)
+    {
+        if (request('password') != NULL) {
+            $formFields = $request->validate([
+                'name' => ['required', 'min:3'],
+                'email' => ['required', Rule::unique('users', 'email')->ignore($user->email, 'email')],
+                'phone' => ['required'],
+                'dob' => ['required'],
+                'age' => ['required'],
+                'country' => ['required'],
+                'password' => ['required', 'confirmed', 'min:6']
+            ]);
+
+            $formFields['password'] = bcrypt(request('password'));
+        } else {
+            $formFields = $request->validate([
+                'name' => ['required', 'min:3'],
+                'email' => ['required', Rule::unique('users', 'email')->ignore($user->email, 'email')],
+                'phone' => ['required'],
+                'dob' => ['required'],
+                'age' => ['required'],
+                'country' => ['required'],
+            ]);
+        }
+
+        $user->update($formFields);
+
+        return back()->with('message', 'User updated successfully');
+    }
 
 
-    //     if (request('password') != NULL) {
-    //         $formFields = $request->validate([
-    //             'role' => ['required'],
-    //             'name' => ['required', 'min:3'],
-    //             'username' => ['required', Rule::unique('instructor', 'username')->ignore($user->username, 'username')],
-    //             'password' => ['nullable', 'confirmed']
-    //         ]);
+    public function add(Request $request)
+    {
+        return view('user.add');
+    }
 
-    //         $formFields['password'] = bcrypt(request('password'));
-    //     } else {
-    //         $formFields = $request->validate([
-    //             'role' => ['required'],
-    //             'name' => ['required', 'min:3'],
-    //             'username' => ['required', Rule::unique('instructor', 'username')->ignore($user->username, 'username')],
-    //         ]);
-    //     }
+    public function storeAdded(Request $request)
+    {
+        $formFields = $request->validate([
+            'role' => ['required'],
+            'name' => ['required', 'min:3'],
+            'email' => ['required', Rule::unique('users', 'email')],
+            'phone' => ['required'],
+            'dob' => ['required'],
+            'age' => ['required'],
+            'country' => ['required'],
+            'password' => ['required', 'confirmed', 'min:6']
+        ]);
 
-    //     if ($request->hasFile('signature')) {
-    //         $formFields['signature'] = $request->file('signature')->store('imgs/signatures', 'public');
-    //         Storage::disk('public')->delete($user->signature);
-    //     }
+        $formFields['password'] = bcrypt($formFields['password']);
 
-    //     $user->update($formFields);
+        User::create($formFields);
 
-    //     return redirect('/user')->with('message', 'Instructor updated successfully');
-    // }
-
+        return back()->with('message', 'Account created successfully');
+    }
 
     // public function show(Request $request)
     // {
     //     return view('User.settings', [
     //         'user' => Auth::user(),
     //     ]);
-    // }
-
-
-    // public function updateInfo(Request $request, User $user)
-    // {
-    //     if ($user->id != Auth::id()) {
-    //         return abort(401);
-    //     }
-
-    //     $formFields = $request->validate([
-    //         'name' => ['required', 'min:3'],
-    //         'username' => ['required', Rule::unique('instructor', 'username')->ignore($user->username, 'username')],
-    //     ]);
-
-    //     if ($request->hasFile('signature')) {
-    //         $formFields['signature'] = $request->file('signature')->store('imgs/signatures', 'public');
-    //         Storage::disk('public')->delete($user->signature);
-    //     }
-
-    //     $user->update($formFields);
-
-    //     return redirect('user/settings')->with('message', 'Information updated successfully');
-    // }
-
-    // public function updatePass(Request $request, User $user)
-    // {
-    //     if ($user->id != Auth::id()) {
-    //         return abort(401);
-    //     }
-
-    //     $formFields = $request->validate([
-    //         'current_password' => ['required'],
-    //         'password' => ['required', 'confirmed', 'min:6']
-    //     ]);
-
-
-    //     if (!password_verify($request['current_password'], $user->password)) {
-    //         return back()->withErrors([
-    //             'current_password' => 'current password is wrong'
-    //         ]);
-    //     }
-
-
-    //     $formFields['password'] = bcrypt($formFields['password']);
-
-    //     $user->update($formFields);
-
-    //     return redirect('user/settings')->with('message', 'Password updated successfully');
     // }
 
     public function logout(Request $request)
@@ -159,14 +135,10 @@ class UserController extends Controller
         return redirect('/')->with('message', 'You have logged out');;
     }
 
-    // public function destroy(User $user)
-    // {
-    //     if ($user->signature != null) {
-    //         Storage::disk('public')->delete($user->signature);
-    //     };
+    public function destroy(User $user)
+    {
+        $user->delete();
 
-    //     $user->delete();
-
-    //     return back()->with('message', 'Instructor deleted successfully');
-    // }
+        return back()->with('message', 'User deleted successfully');
+    }
 }
