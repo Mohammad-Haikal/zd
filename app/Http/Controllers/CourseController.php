@@ -43,7 +43,9 @@ class CourseController extends Controller
 
     public function show(Course $course)
     {
-        //
+        return view('course.show', [
+            'course' => $course,
+        ]);
     }
 
     public function edit(Course $course)

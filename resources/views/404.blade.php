@@ -3,13 +3,6 @@
     <div class="container-fluid page-header wow fadeIn mb-5 py-5" data-wow-delay="0.1s">
         <div class="container py-5 text-center">
             <h1 class="display-2 animated slideInDown mb-4 text-white">404 Error</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary" aria-current="page">404 Error</li>
-                </ol>
-            </nav>
         </div>
     </div>
     <!-- Page Header End -->

@@ -51,6 +51,7 @@ Route::prefix('/')->group(function () {
     Route::get('/', [RouterController::class, 'index'])->name('home');
     Route::get('/login', [RouterController::class, 'login'])->name('login')->middleware('guest');
     Route::get('/signup', [RouterController::class, 'signup'])->name('signup')->middleware('guest');
+    Route::get('/catalogue', [RouterController::class, 'catalogue']);
 });
 
 
@@ -76,7 +77,7 @@ Route::prefix('/course')->group(function () {
     Route::get('/', [CourseController::class, 'index'])->middleware('admin');
     Route::get('/add', [CourseController::class, 'add'])->middleware('admin');
     Route::post('/store', [CourseController::class, 'store'])->middleware('admin');
-    // Route::get('/show/{course}', [CourseController::class, 'show'])->middleware('auth');
+    Route::get('/show/{course}', [CourseController::class, 'show']);
     Route::get('/edit/{course}', [CourseController::class, 'edit'])->middleware('admin');
     Route::put('/update/{course}', [CourseController::class, 'update'])->middleware('admin');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->middleware('admin');

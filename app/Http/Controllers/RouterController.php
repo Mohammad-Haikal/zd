@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\SeaRequest;
 use App\Models\Shipment;
 use Illuminate\Http\Request;
@@ -22,5 +23,11 @@ class RouterController extends Controller
     public function signup()
     {
         return view('user.signup');
+    }
+    public function catalogue()
+    {
+        return view('catalogue', [
+            'courses' => Course::all()->sortByDesc('created_at')
+        ]);
     }
 }

@@ -15,7 +15,7 @@
             <div class="navbar-collapse collapse" id="navbarCollapse">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="/">Home</a>
-                    <a class="nav-item nav-link disabled" href="/catalogue">Course Catalogue</a>
+                    <a class="nav-item nav-link" href="/catalogue">Course Catalogue</a>
                     <a class="nav-item nav-link" href="/about">About</a>
                     <a class="nav-item nav-link" href="/service">Services</a>
                     <a class="nav-item nav-link" href="/project">Projects</a>

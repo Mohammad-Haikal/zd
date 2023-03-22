@@ -12,25 +12,25 @@
                             <th scope="col">Name</th>
                             <th scope="col">Instructor</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Outcomes</th>
+                            {{-- <th scope="col">Outcomes</th>
                             <th scope="col">Prerequisites</th>
                             <th scope="col">Provider</th>
                             <th scope="col">Session Date</th>
-                            <th scope="col">Session Time</th>
+                            <th scope="col">Session Time</th> --}}
                             <th scope="col" colspan="3">Added on Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($courses as $course)
                             <tr>
-                                <td scope="row">{{ $course->name }}</td>
+                                <td scope="row"><a href="/course/show/{{ $course->id }}">{{ $course->name }}</a></td>
                                 <td scope="row">{{ $course->user->name }}</td>
-                                <td scope="row">{{ $course->price }}</td>
-                                <td scope="row">{{ $course->outcomes }}</td>
+                                <td scope="row">{{ $course->price }} JD</td>
+                                {{-- <td scope="row">{{ $course->outcomes }}</td>
                                 <td scope="row">{{ $course->prerequisites }}</td>
                                 <td scope="row">{{ $course->provider }}</td>
                                 <td scope="row">{{ $course->session_date }}</td>
-                                <td scope="row">{{ date('g:i a', strtotime($course->session_time)) }}</td>
+                                <td scope="row">{{ date('g:i a', strtotime($course->session_time)) }}</td> --}}
                                 <td scope="row">{{ date('M d, Y', strtotime($course->created_at)) }}</td>
 
                                 <td scope="row">
