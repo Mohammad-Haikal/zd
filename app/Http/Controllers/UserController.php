@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StudentCourse;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -120,12 +121,12 @@ class UserController extends Controller
         return back()->with('message', 'Account created successfully');
     }
 
-    // public function show(Request $request)
-    // {
-    //     return view('User.settings', [
-    //         'user' => Auth::user(),
-    //     ]);
-    // }
+    public function course()
+    {
+        return view('user.course', [
+            'studentCourses' => Auth::user()->studentCourses()->orderByDesc('created_at')->get(),
+        ]);
+    }
 
     public function logout(Request $request)
     {

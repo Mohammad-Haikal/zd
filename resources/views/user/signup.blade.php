@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </form>
-            <p class="pt-3">Already have an account? <a href="/user/login">Login</a></p>
+            <p class="pt-3">Already have an account? <a href="/login">Login</a></p>
         </div>
     </div>
     <!-- Sign End -->

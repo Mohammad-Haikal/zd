@@ -17,7 +17,7 @@ class CreateCodeTable extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained('course')->onDelete('cascade');
             $table->string('code');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

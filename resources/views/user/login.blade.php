@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </form>
-            <p class="pt-3">Don't have an account? <a href="/user/signup">Sign Up</a></p>
+            <p class="pt-3">Don't have an account? <a href="/signup">Sign Up</a></p>
         </div>
     </div>
     <!-- Sign End -->

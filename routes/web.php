@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\RouterController;
@@ -57,18 +58,24 @@ Route::prefix('/')->group(function () {
 
 // User
 Route::prefix('/user')->group(function () {
+    // General
     Route::post('/auth', [UserController::class, 'authanticate']);
     Route::post('/store', [UserController::class, 'store'])->middleware('guest');
+    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+    // Route::get('/settings', [UserController::class, 'show'])->middleware('auth');
+
+    // Admin
+    Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
+    Route::get('/students', [UserController::class, 'students'])->middleware('admin');
     Route::get('/add', [UserController::class, 'add'])->middleware('admin');
     Route::post('/storeadded', [UserController::class, 'storeAdded'])->middleware('admin');
     Route::get('/edit/{user}', [UserController::class, 'edit'])->middleware('admin');
     Route::put('/update/{user}', [UserController::class, 'update'])->middleware('admin');
-    // Route::get('/settings', [UserController::class, 'show'])->middleware('auth');
-    Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
     Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('admin');
 
-    Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
-    Route::get('/students', [UserController::class, 'students'])->middleware('admin');
+    // Student
+    Route::get('/course', [UserController::class, 'course'])->middleware('auth');
+
 });
 
 
@@ -78,9 +85,20 @@ Route::prefix('/course')->group(function () {
     Route::get('/add', [CourseController::class, 'add'])->middleware('admin');
     Route::post('/store', [CourseController::class, 'store'])->middleware('admin');
     Route::get('/show/{course}', [CourseController::class, 'show']);
+    Route::post('/enroll/{course}', [CourseController::class, 'enroll'])->middleware('auth');
     Route::get('/edit/{course}', [CourseController::class, 'edit'])->middleware('admin');
     Route::put('/update/{course}', [CourseController::class, 'update'])->middleware('admin');
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->middleware('admin');
+});
+
+// Code
+Route::prefix('/code')->group(function () {
+    Route::get('/{course}', [CodeController::class, 'index'])->middleware('admin');
+    Route::post('/generate/{course}', [CodeController::class, 'generate'])->middleware('admin');
+    // Route::get('/show/{course}', [CodeController::class, 'show']);
+    // Route::get('/edit/{course}', [CodeController::class, 'edit'])->middleware('admin');
+    // Route::put('/update/{course}', [CodeController::class, 'update'])->middleware('admin');
+    // Route::delete('/delete/{course}', [CodeController::class, 'destroy'])->middleware('admin');
 });
 
 // Lecture
