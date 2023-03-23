@@ -1,9 +1,21 @@
 <x-template>
     <div class="min-vh-100 container">
+        @error('numberOfCodes')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" role="alert">
+                {{ $message }}
+                <button class="btn-close" data-bs-dismiss="alert" type="button" aria-label="Close"></button>
+            </div>
+        @enderror
         <div class="d-flex align-items-center">
             <h1 class="col">Course Codes</h1>
             <a class="btn btn-primary d-flex align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" type="button"><i class="bi bi-plus me-1"></i>Generate Codes</a>
+            <form action="/code/deleteAll/{{ $course->id }}" method="post">
+                @csrf
+                @method('DELETE')
+                <input class="btn btn-outline-danger ms-2 shadow-sm" type="submit" value="Delete All" onclick="return confirm('Are you sure?')">
+            </form>
         </div>
+
         <div class="table-responsive">
             @if (count($codes) != 0)
                 <table class="table-striped table-hover table">
@@ -18,7 +30,7 @@
                         @foreach ($codes as $code)
                             <tr>
                                 <td scope="row">{{ $code->code }}</a></td>
-                                <td scope="row">{{ ($code->status == 0) ? 'Active' : 'Used' }}</td>
+                                <td scope="row">{{ $code->status == 0 ? 'Active' : 'Used' }}</td>
                                 <td scope="row">{{ date('M d, Y', strtotime($code->created_at)) }}</td>
 
                                 <td scope="row">
@@ -32,6 +44,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $codes->links() }}
             @else
                 <p class="text-muted">No codes found</p>
             @endif
@@ -50,7 +63,7 @@
                             @csrf
                             <div class="row g-3">
                                 <div class="form-floating">
-                                    <input class="form-control" id="numberOfCodes" name="numberOfCodes" type="number" required placeholder="Number of Codes">
+                                    <input class="form-control" id="numberOfCodes" name="numberOfCodes" type="number" required placeholder="Number of Codes" min="1" max="100">
                                     <label for="numberOfCodes">Number of Codes</label>
                                 </div>
                             </div>

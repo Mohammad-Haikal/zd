@@ -98,7 +98,8 @@ Route::prefix('/code')->group(function () {
     // Route::get('/show/{course}', [CodeController::class, 'show']);
     // Route::get('/edit/{course}', [CodeController::class, 'edit'])->middleware('admin');
     // Route::put('/update/{course}', [CodeController::class, 'update'])->middleware('admin');
-    // Route::delete('/delete/{course}', [CodeController::class, 'destroy'])->middleware('admin');
+    Route::delete('/delete/{code}', [CodeController::class, 'destroy'])->middleware('admin');
+    Route::delete('/deleteAll/{course}', [CodeController::class, 'destroyAll'])->middleware('admin');
 });
 
 // Lecture
