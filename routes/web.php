@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\RouterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPermissionsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,8 +66,9 @@ Route::prefix('/user')->group(function () {
     // Route::get('/settings', [UserController::class, 'show'])->middleware('auth');
 
     // Admin
-    Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
     Route::get('/students', [UserController::class, 'students'])->middleware('admin');
+    Route::get('/instructors', [UserController::class, 'instructors'])->middleware('admin');
+    Route::get('/admins', [UserController::class, 'admins'])->middleware('admin');
     Route::get('/add', [UserController::class, 'add'])->middleware('admin');
     Route::post('/storeadded', [UserController::class, 'storeAdded'])->middleware('admin');
     Route::get('/edit/{user}', [UserController::class, 'edit'])->middleware('admin');
@@ -76,6 +78,12 @@ Route::prefix('/user')->group(function () {
     // Student
     Route::get('/course', [UserController::class, 'course'])->middleware('auth');
 
+});
+
+// Admin Permissions
+Route::prefix('/user/permissions')->group(function () {
+    Route::get('/{user}', [UserPermissionsController::class, 'index'])->middleware('admin');
+    Route::put('/update/{user}', [UserPermissionsController::class, 'update'])->middleware('admin');
 });
 
 

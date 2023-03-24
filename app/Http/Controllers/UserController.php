@@ -10,16 +10,36 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function students()
+    {
+        if (Auth::user()->view_st == 0) {
+            abort(401);
+        }
+
+        return view('user.students', [
+            'users' => User::all()->where('role', '=', '0')
+        ]);
+    }
+
     public function instructors()
     {
+        if (Auth::user()->view_in == 0) {
+            abort(401);
+        }
+
         return view('user.instructors', [
             'users' => User::all()->where('role', '=', '1')
         ]);
     }
-    public function students()
+
+    public function admins()
     {
-        return view('user.students', [
-            'users' => User::all()->where('role', '=', '0')
+        if (Auth::user()->view_ad == 0) {
+            abort(401);
+        }
+
+        return view('user.admins', [
+            'users' => User::all()->where('role', '=', '2')
         ]);
     }
 
@@ -60,6 +80,23 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $role = $user->role;
+
+
+        if ($role == 0) {
+            if (Auth::user()->edit_st == 0) {
+                abort(401);
+            }
+        } elseif ($role == 1) {
+            if (Auth::user()->edit_in == 0) {
+                abort(401);
+            }
+        } elseif ($role == 2) {
+            if (Auth::user()->edit_ad == 0) {
+                abort(401);
+            }
+        }
+
         return view('user.edit', [
             'user' => $user,
         ]);
@@ -103,6 +140,22 @@ class UserController extends Controller
 
     public function storeAdded(Request $request)
     {
+        $role = request('role');
+
+        if ($role == 0) {
+            if (Auth::user()->add_st == 0) {
+                abort(401);
+            }
+        } elseif ($role == 1) {
+            if (Auth::user()->add_in == 0) {
+                abort(401);
+            }
+        } elseif ($role == 2) {
+            if (Auth::user()->add_ad == 0) {
+                abort(401);
+            }
+        }
+
         $formFields = $request->validate([
             'role' => ['required'],
             'name' => ['required', 'min:3'],
@@ -138,8 +191,24 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $role = $user->role;
 
+
+        if ($role == 0) {
+            if (Auth::user()->delete_st == 0) {
+                abort(401);
+            }
+        } elseif ($role == 1) {
+            if (Auth::user()->delete_in == 0) {
+                abort(401);
+            }
+        } elseif ($role == 2) {
+            if (Auth::user()->delete_ad == 0) {
+                abort(401);
+            }
+        }
+
+        $user->delete();
         return back()->with('message', 'User deleted successfully');
     }
 }

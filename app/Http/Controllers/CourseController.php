@@ -21,6 +21,9 @@ class CourseController extends Controller
 
     public function add()
     {
+        if (Auth::user()->add_co == 0) {
+            abort(401);
+        }
         return view('course.add', [
             'instructors' => User::all()->where('role', '=', '1'),
         ]);
@@ -69,11 +72,15 @@ class CourseController extends Controller
         ]);
 
         return redirect('/user/course')->with('message', 'Course enrolled in successfully');
-
     }
 
     public function edit(Course $course)
     {
+
+        if (Auth::user()->edit_co == 0) {
+            abort(401);
+        }
+
         return view('course.edit', [
             'course' => $course,
             'instructors' => User::all()->where('role', '=', '1'),
@@ -100,8 +107,11 @@ class CourseController extends Controller
 
     public function destroy(Course $course)
     {
-        $course->delete();
+        if (Auth::user()->delete_co == 0) {
+            abort(401);
+        }
 
+        $course->delete();
         return back()->with('message', 'Course deleted successfully');
     }
 }
