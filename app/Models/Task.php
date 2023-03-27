@@ -16,15 +16,21 @@ class Task extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'title',
         'note',
         'sub_date',
         'sub_time',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function userTasks()
     {
-        return $this->belongsTo(UserTask::class, 'task_id');
+        return $this->hasMany(UserTask::class, 'task_id');
     }
 
 }

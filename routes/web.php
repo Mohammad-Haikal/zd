@@ -4,6 +4,7 @@ use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\RouterController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionsController;
 use Illuminate\Support\Facades\Route;
@@ -74,10 +75,24 @@ Route::prefix('/user')->group(function () {
     Route::get('/edit/{user}', [UserController::class, 'edit'])->middleware('admin');
     Route::put('/update/{user}', [UserController::class, 'update'])->middleware('admin');
     Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('admin');
+    Route::get('/tasks', [UserController::class, 'tasks'])->middleware('admin');
+
+
 
     // Student
     Route::get('/course', [UserController::class, 'course'])->middleware('auth');
 
+});
+
+// Task
+Route::prefix('/task')->group(function () {
+    Route::get('/', [TaskController::class, 'index'])->middleware('admin');
+    Route::get('/add', [TaskController::class, 'add'])->middleware('admin');
+    Route::post('/store', [TaskController::class, 'store'])->middleware('admin');
+    Route::post('/done/{userTask}', [TaskController::class, 'done'])->middleware('admin');
+    Route::get('/edit/{task}', [TaskController::class, 'edit'])->middleware('admin');
+    Route::put('/update/{task}', [TaskController::class, 'update'])->middleware('admin');
+    Route::delete('/delete/{task}', [TaskController::class, 'destroy'])->middleware('admin');
 });
 
 // Admin Permissions

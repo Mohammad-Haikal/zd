@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentCourse;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,13 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function tasks()
+    {
+        return view('user.tasks', [
+            'userTasks' => Auth::user()->userTasks()->where('status', '=', 0)->orderByDesc('created_at')->get(),
+        ]);
+    }
+
     public function students()
     {
         if (Auth::user()->view_st == 0) {

@@ -19543,3 +19543,7 @@ textarea.form-control-lg {
 .bi-wikipedia::before {
   content: "\f8cc";
 }
+
+.nested-table {
+  font-size: smaller;
+}

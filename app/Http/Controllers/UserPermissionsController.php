@@ -10,29 +10,13 @@ class UserPermissionsController extends Controller
 {
     public function index(User $user)
     {
+        if (Auth::user()->edit_ad == 0) {
+            abort(401);
+        }
+
         return view('user.permissions', [
             'user' => $user
         ]);
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(User $user)

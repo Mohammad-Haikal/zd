@@ -44,20 +44,21 @@
                                     <span>(Admin)</span>
                                 @endif
                             </a>
+
                             <div class="dropdown-menu bg-light rounded-0 rounded-bottom m-0">
                                 @if ($user->role == 0)
                                     <a class="dropdown-item" href="/user/course">My Courses</a>
                                     <a class="dropdown-item" href="/user/course/done">Done Courses</a>
                                 @elseif($user->role == 1)
                                     <a class="dropdown-item" href="user/courses">My Courses</a>
-                                    <a class="dropdown-item" href="/usertask">My Tasks</a>
                                 @elseif($user->role == 2)
-                                    <a class="dropdown-item disabled" href="">Manage Tasks</a>
+                                    <a class="dropdown-item" href="/user/tasks">Assinged Tasks</a>
+                                    <a class="dropdown-item" href="/task">Manage Tasks</a>
                                     <a class="dropdown-item" href="/course">Manage Courses</a>
-                                    <a class="dropdown-item" href="/user/add">Add User Account</a>
                                     <a class="dropdown-item" href="/user/students">Manage Students</a>
                                     <a class="dropdown-item" href="/user/instructors">Manage Instructors</a>
                                     <a class="dropdown-item" href="/user/admins">Manage Admins</a>
+                                    <a class="dropdown-item" href="/user/add">Add New User</a>
                                 @endif
                                 <form action="/user/logout" method="post">
                                     @csrf
