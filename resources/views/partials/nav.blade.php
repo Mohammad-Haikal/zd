@@ -50,7 +50,7 @@
                                     <a class="dropdown-item" href="/user/course">My Courses</a>
                                     <a class="dropdown-item" href="/user/course/done">Done Courses</a>
                                 @elseif($user->role == 1)
-                                    <a class="dropdown-item" href="user/courses">My Courses</a>
+                                    <a class="dropdown-item" href="/instructor/course">My Courses</a>
                                 @elseif($user->role == 2)
                                     <a class="dropdown-item" href="/user/tasks">Assinged Tasks</a>
                                     <a class="dropdown-item" href="/task">Manage Tasks</a>

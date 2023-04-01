@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RouterController;
+use App\Http\Controllers\StudentCourseController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionsController;
+use App\Models\StudentCourse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,12 +81,20 @@ Route::prefix('/user')->group(function () {
     Route::delete('/delete/{user}', [UserController::class, 'destroy'])->middleware('admin');
     Route::get('/tasks', [UserController::class, 'tasks'])->middleware('admin');
 
-
-
     // Student
     Route::get('/course', [UserController::class, 'course'])->middleware('auth');
-
 });
+
+// Instructor
+Route::prefix('/instructor')->group(function () {
+    Route::get('/course', [InstructorController::class, 'courses'])->middleware('instructor');
+    Route::get('/course/students/{course}', [InstructorController::class, 'courseStudents'])->middleware('instructor');
+    Route::get('/course/lecs/{course}', [InstructorController::class, 'courseLecs'])->middleware('instructor');
+    Route::get('/course/lecs/{course}/{lecture}', [InstructorController::class, 'courseLecs'])->middleware('instructor');
+    Route::get('/course/recs/{course}', [InstructorController::class, 'courseRecs'])->middleware('instructor');
+    Route::get('/course/recs/{course}/{record}', [InstructorController::class, 'courseRecs'])->middleware('instructor');
+});
+
 
 // Task
 Route::prefix('/task')->group(function () {
@@ -114,31 +126,39 @@ Route::prefix('/course')->group(function () {
     Route::delete('/delete/{course}', [CourseController::class, 'destroy'])->middleware('admin');
 });
 
+// Student Course
+Route::prefix('/studentCourse')->group(function () {
+    Route::get('/{studentCourse}', [StudentCourseController::class, 'index'])->middleware('auth');
+    // Route::get('/add', [StudentCourseController::class, 'add'])->middleware('auth');
+    // Route::post('/store', [StudentCourseController::class, 'store'])->middleware('auth');
+    // Route::get('/show/{course}', [StudentCourseController::class, 'show']);
+    // Route::post('/enroll/{course}', [StudentCourseController::class, 'enroll'])->middleware('auth');
+    // Route::get('/edit/{course}', [StudentCourseController::class, 'edit'])->middleware('auth');
+    // Route::put('/update/{course}', [StudentCourseController::class, 'update'])->middleware('auth');
+    // Route::delete('/delete/{course}', [StudentCourseController::class, 'destroy'])->middleware('auth');
+});
+
 // Code
 Route::prefix('/code')->group(function () {
     Route::get('/{course}', [CodeController::class, 'index'])->middleware('admin');
     Route::post('/generate/{course}', [CodeController::class, 'generate'])->middleware('admin');
-    // Route::get('/show/{course}', [CodeController::class, 'show']);
-    // Route::get('/edit/{course}', [CodeController::class, 'edit'])->middleware('admin');
-    // Route::put('/update/{course}', [CodeController::class, 'update'])->middleware('admin');
     Route::delete('/delete/{code}', [CodeController::class, 'destroy'])->middleware('admin');
     Route::delete('/deleteAll/{course}', [CodeController::class, 'destroyAll'])->middleware('admin');
 });
 
 // Lecture
 Route::prefix('/lecture')->group(function () {
-    // Route::get('/', [LectureController::class, 'index'])->middleware('auth');
-    // Route::get('/create', [LectureController::class, 'create'])->middleware('auth');
-    // Route::post('/store', [LectureController::class, 'store'])->middleware('auth');
-    // Route::get('/show/{lecture}', [LectureController::class, 'show'])->middleware('auth');
-    // Route::get('/edit/{lecture}', [LectureController::class, 'edit'])->middleware('auth');
-    // Route::put('/update', [LectureController::class, 'update'])->middleware('auth');
-    // Route::delete('/destroy/{lecture}', [LectureController::class, 'destroy'])->middleware('auth');
+    Route::post('/store/{course}', [LectureController::class, 'store'])->middleware('instructor');
+    Route::put('/update/{lecture}', [LectureController::class, 'update'])->middleware('instructor');
+    Route::delete('/delete/{lecture}', [LectureController::class, 'destroy'])->middleware('instructor');
 });
 
-
-
-
+// Record
+Route::prefix('/record')->group(function () {
+    Route::post('/store/{course}', [RecordController::class, 'store'])->middleware('instructor');
+    Route::put('/update/{record}', [RecordController::class, 'update'])->middleware('instructor');
+    Route::delete('/delete/{record}', [RecordController::class, 'destroy'])->middleware('instructor');
+});
 
 
 // Middlewares:

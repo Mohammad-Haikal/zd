@@ -17,12 +17,6 @@
             <div class="row g-4">
                 @if (count($courses) != 0)
                     @foreach ($courses as $course)
-                        {{-- {{ $course->user->name }}
-                        {{ $course->price }}
-                        {{ $course->outcomes }}
-                        {{ $course->prerequisites }} --}}
-                        {{-- {{ $course->session_date }} --}}
-                        {{-- {{ date('g:i a', strtotime($course->session_time)) }} --}}
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="service-item position-relative h-100">
                                 <div class="service-text rounded p-5">

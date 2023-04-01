@@ -2,43 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
 class RecordController extends Controller
 {
 
-    public function index()
+    public function store(Course $course)
     {
-        //
+        Record::create([
+            'course_id' => $course->id,
+            'link' => request('link')
+        ]);
+
+        return back()->with('message', 'Record added successfully');
     }
 
-    public function create()
+
+    public function update(Record $record)
     {
-        //
+        $record->update([
+            'link' => request('link')
+        ]);
+        return redirect('/instructor/course/recs/' . $record->course->id)->with('message', 'Record updated successfully');
     }
 
-    public function store(Request $request)
+    public function destroy(Record $record)
     {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        $record->delete();
+        return back()->with('message', 'Record deleted successfully');
     }
 }

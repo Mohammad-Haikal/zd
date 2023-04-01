@@ -1,20 +1,40 @@
 <x-template>
     <div class="min-vh-100 container">
         <h1 class="col">My Courses</h1>
-        <div class="table-responsive">
+        <div class="mt-3 row g-4">
+            @if (count($studentCourses) != 0)
+                @foreach ($studentCourses as $studentCourse)
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="service-item position-relative h-100">
+                            <div class="service-text rounded p-5">
+                                <div class="btn-square bg-light rounded-circle mx-auto mb-4" style="width: 64px; height: 64px;">
+                                    <img class="img-fluid" src="{{ asset('img/icon/icon-' . mt_rand(1, 10) . '.png') }}" alt="Icon">
+                                </div>
+                                <h5 class="mb-3">{{ $studentCourse->course->name }}</h5>
+                                <p class="mb-0">Provided by {{ $studentCourse->course->provider }}</p>
+                            </div>
+                            <div class="service-btn rounded-0 rounded-bottom">
+                                <a class="text-primary fw-medium" href="/studentCourse/{{ $studentCourse->id }}">Go to Course<i class="bi bi-chevron-double-right ms-2"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <p class="text-muted">No courses found</p>
+            @endif
+        </div>
+
+        {{-- <div class="table-responsive">
             @if (count($studentCourses) != 0)
                 <table class="table-striped table-hover table">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Instructor</th>
-                            {{-- <th scope="col">Price</th> --}}
-                            {{-- <th scope="col">Outcomes</th>
-                            <th scope="col">Prerequisites</th>
-                            <th scope="col">Provider</th>
-                            <th scope="col">Session Date</th>
-                            <th scope="col">Session Time</th> --}}
-                            {{-- <th scope="col" colspan="3">Added on Date</th> --}}
+                            <th scope="col">Session Dates</th>
+                            <th scope="col">Session Time</th>
+                            <th scope="col">Enrolled on Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,30 +42,19 @@
                             <tr>
                                 <td scope="row"><a href="/course/show/{{ $studentCourse->course->id }}">{{ $studentCourse->course->name }}</a></td>
                                 <td scope="row">{{ $studentCourse->course->user->name }}</td>
-                                {{-- <td scope="row">{{ $studentCourse->course->price }} JD</td> --}}
-                                {{-- <td scope="row">{{ $course->outcomes }}</td>
-                                <td scope="row">{{ $course->prerequisites }}</td>
-                                <td scope="row">{{ $course->provider }}</td>
-                                <td scope="row">{{ $course->session_date }}</td>
-                                <td scope="row">{{ date('g:i a', strtotime($course->session_time)) }}</td> --}}
 
-                                {{-- <td scope="row">
-                                    <a class="link-secondary m-0" href="/studentCourse/edit/{{ $studentCourse->course->id }}">Edit</a>
-                                </td> --}}
-                                {{-- <td scope="row">
-                                    <form action="/studentCourse/delete/{{ $studentCourse->course->id }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm link-danger border-0 p-0" type="submit" onclick="return confirm('Are you sure?')">Delete</button>
-                                    </form>
-                                </td> --}}
+                                <td scope="row">
+                                    <textarea class="form-control bg-transparent" disabled rows="5">{{ $studentCourse->course->session_date }}</textarea>
+                                </td>
+                                <td scope="row">{{ date('g:i a', strtotime($studentCourse->course->session_time)) }}</td>
+                                <td scope="row">{{ date('M d, Y', strtotime($studentCourse->created_at)) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             @else
-                <p class="text-muted">No courses found</p>
+                <p class="text-muted">No courses found, visit <a class="link-primary" href="/catalogue">Course Catalogue</a></p>
             @endif
-        </div>
+        </div> --}}
     </div>
 </x-template>

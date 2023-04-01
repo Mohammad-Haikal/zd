@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\StudentCourse;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\UserLoginHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -60,6 +61,10 @@ class UserController extends Controller
 
         if (Auth::attempt($formFields, true)) {
             $request->session()->regenerate();
+            Auth::user()->UserLoginHistory()->updateOrCreate(
+                ['user_id' => Auth::id()],
+                // ['type' => 0],
+            );
 
             return redirect('/')->with('message', 'You have successfully logged in');
         }
@@ -191,10 +196,16 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
+        Auth::user()->UserLoginHistory()->updateOrCreate(
+            ['user_id' => Auth::id()],
+            // ['type' => 1],
+        );
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('message', 'You have logged out');;
+
+        return redirect('/')->with('message', 'You have logged out');
     }
 
     public function destroy(User $user)

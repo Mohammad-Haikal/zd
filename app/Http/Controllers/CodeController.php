@@ -28,7 +28,7 @@ class CodeController extends Controller
     {
         return view('code.index', [
             'course' => $course,
-            'codes' => $course->codes()->orderBy('status')->paginate(8)
+            'codes' => $course->codes()->orderBy('status')->paginate(15)
         ]);
     }
 
@@ -56,26 +56,6 @@ class CodeController extends Controller
 
         return Response::download($filePath);
         // return back()->with('message', 'Codes generated successfully');
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function destroy(Code $code)

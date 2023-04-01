@@ -1,5 +1,11 @@
 <x-template>
     <div class="min-vh-100 container">
+        <nav aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+            <ol class="breadcrumb my-2">
+                <li class="breadcrumb-item"><a href="/course">{{ $course->name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Codes</li>
+            </ol>
+        </nav>
         @error('numberOfCodes')
             <div class="alert alert-danger alert-dismissible fade show" role="alert" role="alert">
                 {{ $message }}

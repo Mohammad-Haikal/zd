@@ -86,4 +86,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserTask::class, 'user_id');
     }
+
+    public function userLoginHistory()
+    {
+        return $this->hasMany(UserLoginHistory::class, 'user_id');
+    }
 }

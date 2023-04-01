@@ -2,44 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Lecture;
 use Illuminate\Http\Request;
 
 class LectureController extends Controller
 {
-
-    public function index()
+    public function store(Course $course)
     {
-        //
+        Lecture::create([
+            'course_id' => $course->id,
+            'link' => request('link')
+        ]);
+
+        return back()->with('message', 'Lecture added successfully');
     }
 
-    public function create()
-    {
-        //
-    }
 
-    public function store(Request $request)
+    public function update(Lecture $lecture)
     {
-        //
-    }
-
-    public function show(Lecture $lecture)
-    {
-        //
-    }
-
-    public function edit(Lecture $lecture)
-    {
-        //
-    }
-
-    public function update(Request $request, Lecture $lecture)
-    {
-        //
+        $lecture->update([
+            'link' => request('link')
+        ]);
+        return redirect('/instructor/course/lecs/' . $lecture->course->id)->with('message', 'Lecture updated successfully');
     }
 
     public function destroy(Lecture $lecture)
     {
-        //
+        $lecture->delete();
+        return back()->with('message', 'Lecture deleted successfully');
     }
 }
